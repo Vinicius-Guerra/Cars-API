@@ -1,13 +1,6 @@
-export interface ICar{
-    id: number;
-    model: string;
-    km: number;
-    year: number;
-    brand: string;
-    price?: number;
-    createdAt: Date;
-    updatedAt: Date;
-}
+import { z } from "zod";
+import { carCreateBodySchema, carSchema, carUpdateBodySchema } from "../schemas/car.schema";
 
-export type TCreateBody = Omit<ICar, "id" | "createdAt" | "updatedAt">;
-export type TUpdateBody = Partial<TCreateBody>;
+export type TCar = z.infer<typeof carSchema>;
+export type TCreateCarBody = z.infer<typeof carCreateBodySchema>;
+export type TUpdateCarBody = z.infer<typeof carUpdateBodySchema>;
