@@ -1,19 +1,19 @@
 import { carsDatabase, generateCarId } from "../database/cars";
-import { ICar, TCreateBody, TUpdateBody } from "../interfaces/cars.interface";
+import { TCar, TCreateCarBody, TUpdateCarBody } from "../interfaces/cars.interface";
 
 interface ICarsServices {
-    create(body: TCreateBody): ICar;
-    getMany(search?: string, year?: string): ICar[];
-    getOne(id: string): ICar;
+    create(body: TCreateCarBody): TCar;
+    getMany(search?: string, year?: string): TCar[];
+    getOne(id: string): TCar;
     delete(id: string): void;
-    update(body: TUpdateBody, id: string): ICar;
+    update(body: TUpdateCarBody, id: string): TCar;
 }
 
 export class CarsServices implements ICarsServices {
-    create(body: TCreateBody): ICar {
+    create(body: TCreateCarBody): TCar {
         const date = new Date();
 
-        const newCar: ICar = {
+        const newCar: TCar = {
             id: generateCarId(),
             model: body.model,
             year: body.year,
@@ -27,9 +27,9 @@ export class CarsServices implements ICarsServices {
         carsDatabase.push(newCar);
         
         return newCar;
-    }
+    };
 
-    getMany(search?: string, year?: string): ICar[] {
+    getMany(search?: string, year?: string): TCar[] {
         const carsList = carsDatabase.filter(car => {
             const searchRule = search ? car.model.toLowerCase().includes(search.toLowerCase()) : true;
             const yearRule = year ? car.year === Number(year) : true;
@@ -39,8 +39,8 @@ export class CarsServices implements ICarsServices {
         return carsList;
     }
 
-    getOne(id: string): ICar {
-        const car = carsDatabase.find(car => car.id === Number(id)) as ICar;
+    getOne(id: string): TCar {
+        const car = carsDatabase.find(car => car.id === Number(id)) as TCar;
 
         return car;
     }
@@ -51,8 +51,8 @@ export class CarsServices implements ICarsServices {
         carsDatabase.splice(index, 1);
     }
 
-    update(body: Partial<TCreateBody>, id: string): ICar {
-        const currentCar = carsDatabase.find(car => car.id === Number(id)) as ICar;
+    update(body: TUpdateCarBody, id: string): TCar {
+        const currentCar = carsDatabase.find(car => car.id === Number(id)) as TCar;
         const index = carsDatabase.findIndex(car => car.id === Number(id));
         const data = new Date();
 

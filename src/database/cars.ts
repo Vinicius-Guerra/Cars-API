@@ -1,6 +1,6 @@
-import { ICar } from "../interfaces/cars.interface";
+import { TCar } from "../interfaces/cars.interface";
 
-export const carsDatabase: ICar[] = [];
+export const carsDatabase: TCar[] = [];
 
 let id = 0;
 
