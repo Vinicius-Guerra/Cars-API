@@ -4,7 +4,7 @@ export const carSchema = z.object({
     id: z.number().positive(),
     model: z.string().min(1),
     km: z.number(),
-    year: z.date(),
+    year: z.number(),
     brand: z.string().min(1),
     price: z.number().optional(),
     createdAt: z.date(),
